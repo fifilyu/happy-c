@@ -1,0 +1,31 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(happy-c C)
+
+SET(CMAKE_C_STANDARD 99)
+
+SET(CMAKE_INSTALL_PREFIX /usr/local/happyc)
+
+# 设置默认 CMAKE_BUILD_TYPE 为 Debug
+IF (NOT CMAKE_BUILD_TYPE)
+    SET(CMAKE_BUILD_TYPE Debug
+            CACHE STRING
+            "Choose the type of build, options are: Debug Release"
+            FORCE)
+ENDIF (NOT CMAKE_BUILD_TYPE)
+
+SET(HAPPYC_VERSION_MAJOR 0)
+SET(HAPPYC_VERSION_MINOR 1)
+SET(HAPPYC_VERSION_PATCH 0)
+SET(HAPPYC_VERSION "${HAPPYC_VERSION_MAJOR}.${HAPPYC_VERSION_MINOR}.${HAPPYC_VERSION_PATCH}")
+
+INCLUDE_DIRECTORIES(include)
+
+SET(source_files src/log.c src/filesys.c src/date.c)
+
+ADD_LIBRARY(happyc SHARED ${source_files})
+
+INSTALL(TARGETS happyc LIBRARY DESTINATION lib)
+
+INCLUDE(example/CMakeLists.txt)
+
