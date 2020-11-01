@@ -26,6 +26,7 @@ SET(source_files src/log.c src/filesys.c src/date.c)
 ADD_LIBRARY(happyc SHARED ${source_files})
 
 INSTALL(TARGETS happyc LIBRARY DESTINATION lib)
+INSTALL(DIRECTORY include/happyc DESTINATION include)
 
 INCLUDE(example/CMakeLists.txt)
 
