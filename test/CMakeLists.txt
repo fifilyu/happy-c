@@ -22,3 +22,23 @@ ADD_CUSTOM_TARGET(valgrind_base64_test
 #ADD_CUSTOM_COMMAND(TARGET base64_test
 #        POST_BUILD
 #        COMMAND make valgrind_base64_test)
+
+ADD_EXECUTABLE(list_test ${CMAKE_CURRENT_SOURCE_DIR}/test/list_test.c)
+TARGET_LINK_LIBRARIES(list_test happyc ${CHECK_LIBRARIES})
+ADD_TEST(NAME list_test COMMAND list_test)
+ADD_CUSTOM_TARGET(valgrind_list_test
+        COMMAND ${VALGRIND_PROGRAM} --leak-check=full $<TARGET_FILE:list_test>
+        DEPENDS list_test)
+#ADD_CUSTOM_COMMAND(TARGET list_test
+#        POST_BUILD
+#        COMMAND make valgrind_list_test)
+
+ADD_EXECUTABLE(csv_test ${CMAKE_CURRENT_SOURCE_DIR}/test/csv_test.c)
+TARGET_LINK_LIBRARIES(csv_test happyc ${CHECK_LIBRARIES})
+ADD_TEST(NAME csv_test COMMAND csv_test)
+ADD_CUSTOM_TARGET(valgrind_csv_test
+        COMMAND ${VALGRIND_PROGRAM} --leak-check=full $<TARGET_FILE:csv_test>
+        DEPENDS csv_test)
+#ADD_CUSTOM_COMMAND(TARGET csv_test
+#        POST_BUILD
+#        COMMAND make valgrind_csv_test)
