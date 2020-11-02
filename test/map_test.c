@@ -43,6 +43,8 @@ START_TEST(test_map) {
     val = map_get(&map_str, "c_key");
     ck_assert(val);
     ck_assert_str_eq("c_value", *val);
+
+    map_deinit_((map_base_t *) &map_str);
 }
 END_TEST
 
