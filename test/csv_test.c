@@ -47,7 +47,6 @@ char *row_handler(void *data) {
     strcat(buffer, "]");
 
     list_free(feild_list);
-    free(feild_list);
 
     return buffer;
 }
@@ -86,7 +85,6 @@ START_TEST(test_csv_parser) {
     }
 
     list_free(row_list);
-    free(row_list);
 }
 END_TEST
 

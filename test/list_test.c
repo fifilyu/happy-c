@@ -58,7 +58,6 @@ START_TEST(test_list) {
     ck_assert(strcmp(node->data, "678") == 0);
 
     list_free(list_ptr);
-    free(list_ptr);
 }
 END_TEST
 

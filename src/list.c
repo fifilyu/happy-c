@@ -58,6 +58,8 @@ void list_free(list_t *list) {
 
         free(tmp);
     }
+
+    free(list);
 }
 
 list_node_t *list_get(list_t *list, size_t index) {
