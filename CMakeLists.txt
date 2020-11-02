@@ -14,6 +14,8 @@ IF (NOT CMAKE_BUILD_TYPE)
             FORCE)
 ENDIF (NOT CMAKE_BUILD_TYPE)
 
+INCLUDE(cmake/FindPackage.cmake)
+
 SET(HAPPYC_VERSION_MAJOR 0)
 SET(HAPPYC_VERSION_MINOR 1)
 SET(HAPPYC_VERSION_PATCH 0)
@@ -21,12 +23,21 @@ SET(HAPPYC_VERSION "${HAPPYC_VERSION_MAJOR}.${HAPPYC_VERSION_MINOR}.${HAPPYC_VER
 
 INCLUDE_DIRECTORIES(include)
 
-SET(source_files src/log.c src/filesys.c src/date.c)
+SET(source_files
+        src/csv.c
+        src/log.c
+        src/filesys.c
+        src/date.c
+        src/list.c
+        src/base64/buffer.c
+        src/base64/decode.c
+        src/base64/encode.c
+        src/map.c)
 
 ADD_LIBRARY(happyc SHARED ${source_files})
 
 INSTALL(TARGETS happyc LIBRARY DESTINATION lib)
 INSTALL(DIRECTORY include/happyc DESTINATION include)
 
-INCLUDE(example/CMakeLists.txt)
+INCLUDE(test/CMakeLists.txt)
 
