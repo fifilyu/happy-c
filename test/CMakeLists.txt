@@ -42,3 +42,13 @@ ADD_CUSTOM_TARGET(valgrind_csv_test
 #ADD_CUSTOM_COMMAND(TARGET csv_test
 #        POST_BUILD
 #        COMMAND make valgrind_csv_test)
+
+ADD_EXECUTABLE(map_test ${CMAKE_CURRENT_SOURCE_DIR}/test/map_test.c)
+TARGET_LINK_LIBRARIES(map_test happyc ${CHECK_LIBRARIES})
+ADD_TEST(NAME map_test COMMAND map_test)
+ADD_CUSTOM_TARGET(valgrind_map_test
+        COMMAND ${VALGRIND_PROGRAM} --leak-check=full $<TARGET_FILE:map_test>
+        DEPENDS map_test)
+#ADD_CUSTOM_COMMAND(TARGET map_test
+#        POST_BUILD
+#        COMMAND make valgrind_map_test)
