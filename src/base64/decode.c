@@ -25,7 +25,7 @@ unsigned char *
 b64_decode_ex(const char *src, size_t len, size_t *decsize) {
     int i = 0;
     int j = 0;
-    int l = 0;
+    int l;
     size_t size = 0;
     unsigned char *dec = NULL;
     unsigned char buf[3];
@@ -58,7 +58,7 @@ b64_decode_ex(const char *src, size_t len, size_t *decsize) {
             }
 
             // decode
-            buf[0] = (tmp[0] << 2) + ((tmp[1] & 0x30) >> 4);
+            buf[0] = (tmp[0] << 2U) + ((tmp[1] & 0x30) >> 4);
             buf[1] = ((tmp[1] & 0xf) << 4) + ((tmp[2] & 0x3c) >> 2);
             buf[2] = ((tmp[2] & 0x3) << 6) + tmp[3];
 
@@ -96,7 +96,7 @@ b64_decode_ex(const char *src, size_t len, size_t *decsize) {
         }
 
         // decode remainder
-        buf[0] = (tmp[0] << 2) + ((tmp[1] & 0x30) >> 4);
+        buf[0] = (tmp[0] << 2U) + ((tmp[1] & 0x30) >> 4);
         buf[1] = ((tmp[1] & 0xf) << 4) + ((tmp[2] & 0x3c) >> 2);
         buf[2] = ((tmp[2] & 0x3) << 6) + tmp[3];
 

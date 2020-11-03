@@ -24,9 +24,6 @@
 
 #include "list.h"
 
-typedef void (*column_handler_t)(int column_num, void *data, void *output);
-typedef void (*row_handler_t)(int row_num, void *data, void *output);
-
 void csv_parser(char *s, char *delimiter, list_t *list);
 
 #endif //HAPPY_C_CSV_H

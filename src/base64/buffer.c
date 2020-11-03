@@ -17,11 +17,11 @@ extern void* b64_realloc(void*, size_t);
 #endif
 
 // The number of buffers we need
-int bufc = 0;
+size_t bufc = 0;
 
 char *b64_buf_malloc() {
     char *buf = b64_malloc(B64_BUFFER_SIZE);
-    bufc = 1;
+    bufc = 1U;
     return buf;
 }
 
@@ -33,5 +33,5 @@ char *b64_buf_realloc(unsigned char *ptr, size_t size) {
         return buf;
     }
 
-    return ptr;
+    return (char *)ptr;
 }

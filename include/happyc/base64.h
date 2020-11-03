@@ -25,7 +25,7 @@
 #define B64_BUFFER_SIZE        (1 * 64) // 64 byte
 
 // Start buffered memory
-char *b64_buf_malloc();
+char *b64_buf_malloc(void);
 
 // Update memory size. Returns the same pointer if we
 // have enough space in the buffer. Otherwise, we add

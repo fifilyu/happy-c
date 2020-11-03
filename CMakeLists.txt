@@ -16,6 +16,8 @@ ENDIF (NOT CMAKE_BUILD_TYPE)
 
 INCLUDE(cmake/FindPackage.cmake)
 
+add_compile_options(-Wall -Wextra -pedantic -Werror)
+
 SET(HAPPYC_VERSION_MAJOR 0)
 SET(HAPPYC_VERSION_MINOR 1)
 SET(HAPPYC_VERSION_PATCH 0)

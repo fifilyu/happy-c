@@ -44,7 +44,7 @@ START_TEST(test_map) {
     ck_assert(val);
     ck_assert_str_eq("c_value", *val);
 
-    map_deinit_((map_base_t *) &map_str);
+    map_deinit(&map_str);
 }
 END_TEST
 
