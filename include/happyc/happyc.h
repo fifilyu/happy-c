@@ -23,5 +23,6 @@
 #define HAPPY_C_HAPPYC_H
 
 #include <stdbool.h>
+#include "happyc/platform.h"
 
 #endif //HAPPY_C_HAPPYC_H

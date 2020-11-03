@@ -23,7 +23,9 @@
 #include "happyc/filesys.h"
 #include "happyc/log.h"
 #include <errno.h>
+#ifdef PLATFORM_LINUX
 #include <unistd.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -32,6 +34,7 @@
 // 104857600 byte == 100 MiB
 LogConfig_t G_LogConfig = {LOG_INFO, LOGOUTPUT_STDOUT, 0, NULL};
 
+#ifdef PLATFORM_LINUX
 void open_log_file(FILE **file) {
     const size_t old_log_size_ = get_size_in_byte(G_LogConfig.path);
 
@@ -92,3 +95,7 @@ void happy_log(
     if (G_LogConfig.output_to == LOGOUTPUT_FILE)
         fclose(log_file_);
 }
+#else
+void happy_log(
+        LogLevel_t level, const char *file, int line, const char *fmt, ...) {}
+#endif

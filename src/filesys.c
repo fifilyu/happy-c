@@ -20,13 +20,23 @@
 // IN THE SOFTWARE.
 
 #include "happyc/filesys.h"
-#include <sys/stat.h>
+#include "happyc/log.h"
 
-size_t get_size_in_byte(const char *file_name) {
-    struct stat buf_ = {};
+size_t get_size_in_byte(const char *filename) {
+    FILE *fp = fopen(filename, "r");
+    size_t file_size = 0;
 
-    if (stat(file_name, &buf_) == 0)
-        return buf_.st_size;
+    if(fp) {
+        fseek(fp, 0 , SEEK_END);
 
-    return 0;
+        file_size = ftell(fp);
+
+        fseek(fp, 0 , SEEK_SET);
+
+        fclose(fp);
+    } else {
+        log_warn("cannot open file '%s'", filename);
+    }
+
+    return file_size;
 }

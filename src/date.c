@@ -20,6 +20,8 @@
 // IN THE SOFTWARE.
 
 #include "happyc/date.h"
+
+#ifdef PLATFORM_LINUX
 #include <time.h>
 
 // 获取当前时间，比如 2011-11-16 14:06:36
@@ -32,3 +34,4 @@ bool get_current_date(char *buffer, size_t len) {
 
     return true;
 }
+#endif
