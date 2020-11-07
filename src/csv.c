@@ -19,6 +19,10 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/csv.h"
 #include "happyc/list.h"
 #include <string.h>
@@ -47,3 +51,8 @@ void csv_parser(char *s, char *delimiter, list_t *list) {
         csv_parser(saveptr, delimiter, list);
     }
 }
+
+#ifdef __cplusplus
+}
+#endif
+

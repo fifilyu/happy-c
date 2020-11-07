@@ -19,6 +19,10 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/date.h"
 #include "happyc/filesys.h"
 #include "happyc/log.h"
@@ -99,3 +103,8 @@ void happy_log(
 void happy_log(
         LogLevel_t level, const char *file, int line, const char *fmt, ...) {}
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+

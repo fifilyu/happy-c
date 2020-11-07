@@ -22,10 +22,18 @@
 #ifndef HAPPY_C_FILESYS_H
 #define HAPPY_C_FILESYS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <stdbool.h>
 
 bool check_file_exists(const char *filename);
 size_t get_size_in_byte(const char *file_name);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //HAPPY_C_FILESYS_H

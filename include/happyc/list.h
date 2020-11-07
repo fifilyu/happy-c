@@ -24,6 +24,10 @@
 #ifndef HAPPY_C_LIST_H
 #define HAPPY_C_LIST_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 
 typedef struct list_node {
@@ -48,5 +52,9 @@ size_t list_size(list_t *list);
 list_node_t *list_first(list_t *list);
 
 list_node_t *list_last(list_t *list);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // HAPPY_C_LIST_H

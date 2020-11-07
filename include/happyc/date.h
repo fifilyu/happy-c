@@ -22,9 +22,17 @@
 #ifndef HAPPY_C_DATE_H
 #define HAPPY_C_DATE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/happyc.h"
 #include <stdio.h>
 
 bool get_current_date(char *buffer, size_t len);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //HAPPY_C_DATE_H

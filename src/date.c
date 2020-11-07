@@ -19,6 +19,10 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/date.h"
 
 #ifdef PLATFORM_LINUX
@@ -35,3 +39,8 @@ bool get_current_date(char *buffer, size_t len) {
     return true;
 }
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+

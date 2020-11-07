@@ -22,7 +22,15 @@
 #ifndef HAPPY_C_HAPPYC_H
 #define HAPPY_C_HAPPYC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdbool.h>
 #include "happyc/platform.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //HAPPY_C_HAPPYC_H

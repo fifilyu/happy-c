@@ -22,6 +22,10 @@
 #ifndef HAPPY_C_LOG_H
 #define HAPPY_C_LOG_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <string.h>
 
 typedef enum {
@@ -91,5 +95,9 @@ void happy_log(LogLevel_t level, const char *file, int line, const char *fmt, ..
 
 #define log_output(value_fmt, name, value) \
     log_trace("output->%s="value_fmt, name, value)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //HAPPY_C_LOG_H

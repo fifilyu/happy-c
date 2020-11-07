@@ -22,8 +22,16 @@
 #ifndef HAPPY_C_CSV_H
 #define HAPPY_C_CSV_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "list.h"
 
 void csv_parser(char *s, char *delimiter, list_t *list);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //HAPPY_C_CSV_H

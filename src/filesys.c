@@ -19,6 +19,10 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/filesys.h"
 #include "happyc/log.h"
 #include <stdbool.h>
@@ -46,3 +50,7 @@ size_t get_size_in_byte(const char *filename) {
 
     return file_size;
 }
+
+#ifdef __cplusplus
+}
+#endif
