@@ -91,7 +91,7 @@ void happy_log(LogLevel_t level, const char *file, int line, const char *fmt, ..
     log_trace("var->%s="value_fmt, name, value)
 
 #define log_input(value_fmt, name, value) \
-    log_trace("input->%s\x1b[0m="value_fmt, name, value)
+    log_trace("input->%s="value_fmt, name, value)
 
 #define log_output(value_fmt, name, value) \
     log_trace("output->%s="value_fmt, name, value)
