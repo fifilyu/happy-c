@@ -36,6 +36,11 @@ LogConfig_t G_LogConfig = {LOG_INFO, LOGOUTPUT_STDOUT, 0, NULL};
 
 #ifdef PLATFORM_LINUX
 void open_log_file(FILE **file) {
+    if (*file == NULL) {
+        *file = fopen(G_LogConfig.path, "wb");
+        return;
+    }
+
     const size_t old_log_size_ = get_size_in_byte(G_LogConfig.path);
 
     if (old_log_size_ >= G_LogConfig.max_byte)
@@ -44,11 +49,6 @@ void open_log_file(FILE **file) {
     else
         // 追加
         *file = fopen(G_LogConfig.path, "ab+");
-
-    if (*file == NULL) {
-        printf("cannot open \"%s\": %s\n", G_LogConfig.path, strerror(errno));
-        exit(EXIT_FAILURE);
-    }
 }
 
 void happy_log(
