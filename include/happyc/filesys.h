@@ -23,7 +23,9 @@
 #define HAPPY_C_FILESYS_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
+bool check_file_exists(const char *filename);
 size_t get_size_in_byte(const char *file_name);
 
 #endif //HAPPY_C_FILESYS_H

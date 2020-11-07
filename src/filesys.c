@@ -21,6 +21,12 @@
 
 #include "happyc/filesys.h"
 #include "happyc/log.h"
+#include <stdbool.h>
+
+bool check_file_exists(const char *filename) {
+    FILE *fp = fopen(filename, "r");
+    return fp != NULL;
+}
 
 size_t get_size_in_byte(const char *filename) {
     FILE *fp = fopen(filename, "r");
