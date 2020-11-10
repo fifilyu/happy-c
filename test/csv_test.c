@@ -26,7 +26,7 @@
 
 char *row_handler(void *data) {
     list_t *feild_list = (list_t *) malloc(sizeof(list_t));
-    list_init(feild_list); //初始化链表
+    list_init(feild_list);
 
     csv_parser(data, ",", feild_list);
 
@@ -42,7 +42,7 @@ char *row_handler(void *data) {
         node = node->next;
     }
 
-    // 去掉最后的空格
+    // remove the last space
     buffer[strlen(buffer) -1] = 0;
     strcat(buffer, "]");
 
@@ -60,7 +60,7 @@ START_TEST(test_csv_parser) {
     };
 
     list_t *row_list = (list_t *) malloc(sizeof(list_t));
-    list_init(row_list); //初始化链表
+    list_init(row_list);
     ck_assert(row_list);
 
     const size_t buffer_size = strlen(origin);
@@ -75,7 +75,7 @@ START_TEST(test_csv_parser) {
 
     while(node) {
         char *result = row_handler(node->data);
-        log_info("行：%s", result);
+        log_info("Line: %s", result);
         ck_assert(result);
         ck_assert_str_eq(result, expect_result[n]);
         free(result);

@@ -1,4 +1,4 @@
-// -*- C -*-
+﻿// -*- C -*-
 // Copyright (c) 2020, Fifi Lyu. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,35 +19,35 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-// 单向链表
+#ifndef HAPPY_C_CONFIG_PLATFORM_H
+#define HAPPY_C_CONFIG_PLATFORM_H
 
-#ifndef HAPPY_C_LIST_H
-#define HAPPY_C_LIST_H
+#if defined(WIN32) || defined(_WIN32)
+#define PLATFORM_WIN32 1
+#elif defined(__linux__) || defined(linux)
+#define PLATFORM_LINUX 1
+#elif defined(__arm__)
+#   define PLATFORM_ARM 1
+#else
+#error Unknown platform
+#endif
 
-#include "happyc/happyc.h"
-#include <stddef.h>
+#if defined(_WIN32) || defined(_WIN64)
+#  if defined(_WIN64)
+#    define PLATFORM_64 1
+#  else
+#    define PLATFORM_32 1
+#  endif
+#elif defined(__GNUC__)
+#  if defined(__x86_64__)
+#    define PLATFORM_64 1
+#  else
+#    define PLATFORM_32 1
+#  endif
+#elif defined(__arm__)
+#   define PLATFORM_32 1
+#else
+#  error Unknown platform
+#endif
 
-typedef struct list_node {
-    void *data;
-    struct list_node *next;
-} list_node_t;
-
-typedef struct list {
-    list_node_t *head;
-} list_t;
-
-HAPPYC_SHARED_LIB_API void list_init(list_t *list);
-
-HAPPYC_SHARED_LIB_API list_node_t *list_get(list_t *list, size_t);
-
-HAPPYC_SHARED_LIB_API void list_push_back(list_t *list, void *data);
-
-HAPPYC_SHARED_LIB_API void list_free(list_t *list);
-
-HAPPYC_SHARED_LIB_API size_t list_size(list_t *list);
-
-HAPPYC_SHARED_LIB_API list_node_t *list_first(list_t *list);
-
-HAPPYC_SHARED_LIB_API list_node_t *list_last(list_t *list);
-
-#endif // HAPPY_C_LIST_H
+#endif  // HAPPY_C_CONFIG_PLATFORM_H

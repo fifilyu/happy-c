@@ -22,8 +22,9 @@
 #ifndef HAPPY_C_CSV_H
 #define HAPPY_C_CSV_H
 
-#include "list.h"
+#include "happyc/happyc.h"
+#include "happyc/list.h"
 
-void csv_parser(char *s, char *delimiter, list_t *list);
+HAPPYC_SHARED_LIB_API void csv_parser(char *s, const char *delimiter, list_t *list);
 
 #endif //HAPPY_C_CSV_H

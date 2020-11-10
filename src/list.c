@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include "happyc/list.h"
 
-void list_init(list_t *list) {
+HAPPYC_SHARED_LIB_API void list_init(list_t *list) {
     list->head = NULL;
 }
 
@@ -33,12 +33,12 @@ static list_node_t *new_node(void *data) {
     return node;
 }
 
-void list_push_back(list_t *list, void *data) {
+HAPPYC_SHARED_LIB_API void list_push_back(list_t *list, void *data) {
     list_node_t *head = list->head;
     list_node_t *node = new_node(data);
 
     if (head) {
-        // 直达最后一个节点
+        // go to the last node
         for (; head->next; head = head->next);
 
         head->next = node;
@@ -47,8 +47,7 @@ void list_push_back(list_t *list, void *data) {
     }
 }
 
-// 释放链表上的内存
-void list_free(list_t *list) {
+HAPPYC_SHARED_LIB_API void list_free(list_t *list) {
     list_node_t *node = list->head;
     list_node_t *tmp;
 
@@ -62,7 +61,7 @@ void list_free(list_t *list) {
     free(list);
 }
 
-list_node_t *list_get(list_t *list, size_t index) {
+HAPPYC_SHARED_LIB_API list_node_t *list_get(list_t *list, size_t index) {
     list_node_t *node = list->head;
     size_t n = 0;
 
@@ -78,7 +77,7 @@ list_node_t *list_get(list_t *list, size_t index) {
     return (list_node_t *)NULL;
 }
 
-size_t list_size(list_t *list) {
+HAPPYC_SHARED_LIB_API size_t list_size(list_t *list) {
     list_node_t *node = list->head;
     int n = 0;
 
@@ -90,7 +89,7 @@ size_t list_size(list_t *list) {
     return n;
 }
 
-list_node_t *list_first(list_t *list) {
+HAPPYC_SHARED_LIB_API list_node_t *list_first(list_t *list) {
     list_node_t *result = NULL;
 
     if (list) {
@@ -100,7 +99,7 @@ list_node_t *list_first(list_t *list) {
     return result;
 }
 
-list_node_t *list_last(list_t *list) {
+HAPPYC_SHARED_LIB_API list_node_t *list_last(list_t *list) {
     list_node_t *result = NULL;
 
     if (list) {

@@ -19,13 +19,13 @@ extern void* b64_realloc(void*, size_t);
 // The number of buffers we need
 size_t bufc = 0;
 
-char *b64_buf_malloc() {
+HAPPYC_SHARED_LIB_API char *b64_buf_malloc() {
     char *buf = b64_malloc(B64_BUFFER_SIZE);
     bufc = 1U;
     return buf;
 }
 
-char *b64_buf_realloc(unsigned char *ptr, size_t size) {
+HAPPYC_SHARED_LIB_API char *b64_buf_realloc(unsigned char *ptr, size_t size) {
     if (size > bufc * B64_BUFFER_SIZE) {
         while (size > bufc * B64_BUFFER_SIZE) bufc++;
         char *buf = b64_realloc(ptr, B64_BUFFER_SIZE * bufc);

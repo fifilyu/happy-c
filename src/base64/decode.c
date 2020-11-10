@@ -16,12 +16,12 @@ extern void* b64_malloc(size_t);
 extern void* b64_realloc(void*, size_t);
 #endif
 
-unsigned char *
+HAPPYC_SHARED_LIB_API unsigned char *
 b64_decode(const char *src, size_t len) {
     return b64_decode_ex(src, len, NULL);
 }
 
-unsigned char *
+HAPPYC_SHARED_LIB_API unsigned char *
 b64_decode_ex(const char *src, size_t len, size_t *decsize) {
     int i = 0;
     int j = 0;

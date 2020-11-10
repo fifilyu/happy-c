@@ -25,6 +25,6 @@
 #include "happyc/happyc.h"
 #include <stdio.h>
 
-bool get_current_date(char *buffer, size_t len);
+HAPPYC_SHARED_LIB_API bool get_current_date(char *buffer, size_t len);
 
 #endif //HAPPY_C_DATE_H

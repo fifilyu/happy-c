@@ -23,27 +23,15 @@
 #include "happyc/list.h"
 #include <string.h>
 
-void csv_parser(char *s, char *delimiter, list_t *list) {
-    char *saveptr;
-    const char *token;
-
-    // 参数检查
+HAPPYC_SHARED_LIB_API void csv_parser(char *s, const char *delimiter, list_t *list) {
     if (s == NULL || delimiter == NULL) {
         return;
     }
 
-    token = strtok_r(s, delimiter, &saveptr);
+    char *token = strtok(s, delimiter);
 
-    if (token == NULL) {
-        token = s;
-    }
-
-    list_push_back(list, (void *) token);
-
-    if (saveptr == NULL || strcmp(saveptr, "\0") == 0) {
-        // 没有可分隔的字符串了
-        return;
-    } else {
-        csv_parser(saveptr, delimiter, list);
+    while (token) {
+        list_push_back(list, (void *) token);
+        token = strtok(NULL, delimiter);
     }
 }

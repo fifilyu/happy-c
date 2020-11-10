@@ -22,6 +22,7 @@
 #ifndef HAPPY_C_LOG_H
 #define HAPPY_C_LOG_H
 
+#include "happyc/happyc.h"
 #include <string.h>
 
 typedef enum {
@@ -49,7 +50,7 @@ typedef struct {
 
 extern LogConfig_t G_LogConfig;
 
-void happy_log(LogLevel_t level, const char *file, int line, const char *fmt, ...);
+HAPPYC_SHARED_LIB_API void happy_log(LogLevel_t level, const char *file, int line, const char *fmt, ...);
 
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 

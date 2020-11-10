@@ -22,7 +22,7 @@
 #include "happyc/filesys.h"
 #include "happyc/log.h"
 
-size_t get_size_in_byte(const char *filename) {
+HAPPYC_SHARED_LIB_API size_t get_size_in_byte(const char *filename) {
     FILE *fp = fopen(filename, "r");
     size_t file_size = 0;
 

@@ -21,17 +21,31 @@
 
 #include "happyc/date.h"
 
-#ifdef PLATFORM_LINUX
 #include <time.h>
+#include <happyc/log.h>
 
-// 获取当前时间，比如 2011-11-16 14:06:36
-bool get_current_date(char *buffer, size_t len) {
+// 2011-11-16 14:06:36
+HAPPYC_SHARED_LIB_API bool get_current_date(char *buffer, size_t len) {
     if (len < 19)
         return false;
 
     time_t t = time(NULL);
-    strftime(buffer, len, "%Y-%m-%d %H:%M:%S", localtime(&t));
+
+#ifdef PLATFORM_WIN32
+    struct tm newtime;
+    errno_t err = localtime_s(&newtime, &t);
+
+    if (err) {
+        log_error("Invalid argument to localtime_s.");
+        return false;
+    }
+
+    strftime(buffer, len, "%Y-%m-%d %H:%M:%S", &newtime);
+
+#else
+    struct tm *newtime = localtime(&t);
+    strftime(buffer, len, "%Y-%m-%d %H:%M:%S", newtime);
+#endif
 
     return true;
 }
-#endif

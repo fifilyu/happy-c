@@ -26,6 +26,9 @@
 #ifdef PLATFORM_LINUX
 #include <unistd.h>
 #endif
+#ifdef PLATFORM_WIN32
+#include <process.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -33,9 +36,15 @@
 
 // 104857600 byte == 100 MiB
 LogConfig_t G_LogConfig = {LOG_INFO, LOGOUTPUT_STDOUT, 0, NULL};
+static int pid = 0;
 
-#ifdef PLATFORM_LINUX
-void open_log_file(FILE **file) {
+#if defined(PLATFORM_LINUX) || defined(PLATFORM_WIN32)
+HAPPYC_SHARED_LIB_API void open_log_file(FILE **file) {
+    if (*file == NULL) {
+        *file = fopen(G_LogConfig.path, "wb");
+        return;
+    }
+
     const size_t old_log_size_ = get_size_in_byte(G_LogConfig.path);
 
     if (old_log_size_ >= G_LogConfig.max_byte)
@@ -44,14 +53,9 @@ void open_log_file(FILE **file) {
     else
         // 追加
         *file = fopen(G_LogConfig.path, "ab+");
-
-    if (*file == NULL) {
-        printf("cannot open \"%s\": %s\n", G_LogConfig.path, strerror(errno));
-        exit(EXIT_FAILURE);
-    }
 }
 
-void happy_log(
+HAPPYC_SHARED_LIB_API void happy_log(
         LogLevel_t level, const char *file, int line, const char *fmt, ...) {
     char current_date_buffer[20];
 
@@ -78,8 +82,16 @@ void happy_log(
             break;
     }
 
+    if (pid == 0) {
+#ifdef PLATFORM_WIN32
+        pid = _getpid();
+#else
+        pid = getpid();
+#endif
+    }
+
     get_current_date(current_date_buffer, 20);
-    fprintf(log_file_, "[%s] [%d] ", current_date_buffer, getpid());
+    fprintf(log_file_, "[%s] [%d] ", current_date_buffer, pid);
 
     if (level <= LOG_DEBUG)
         fprintf(log_file_, "%s:%d ", file, line);
@@ -96,6 +108,6 @@ void happy_log(
         fclose(log_file_);
 }
 #else
-void happy_log(
+HAPPYC_SHARED_LIB_API void happy_log(
         LogLevel_t level, const char *file, int line, const char *fmt, ...) {}
 #endif

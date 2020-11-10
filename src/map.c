@@ -108,7 +108,7 @@ static map_node_t **map_getref(map_base_t *m, const char *key) {
 }
 
 
-void map_deinit_(map_base_t *m) {
+HAPPYC_SHARED_LIB_API void map_deinit_(map_base_t *m) {
     map_node_t *next, *node;
     int i;
     i = m->nbuckets;
@@ -124,13 +124,13 @@ void map_deinit_(map_base_t *m) {
 }
 
 
-void *map_get_(map_base_t *m, const char *key) {
+HAPPYC_SHARED_LIB_API void *map_get_(map_base_t *m, const char *key) {
     map_node_t **next = map_getref(m, key);
     return next ? (*next)->value : NULL;
 }
 
 
-int map_set_(map_base_t *m, const char *key, void *value, int vsize) {
+HAPPYC_SHARED_LIB_API int map_set_(map_base_t *m, const char *key, void *value, int vsize) {
     int n, err;
     map_node_t **next, *node;
     /* Find & replace existing node */
@@ -156,7 +156,7 @@ int map_set_(map_base_t *m, const char *key, void *value, int vsize) {
 }
 
 
-void map_remove_(map_base_t *m, const char *key) {
+HAPPYC_SHARED_LIB_API void map_remove_(map_base_t *m, const char *key) {
     map_node_t *node;
     map_node_t **next = map_getref(m, key);
     if (next) {
@@ -168,7 +168,7 @@ void map_remove_(map_base_t *m, const char *key) {
 }
 
 
-map_iter_t map_iter_(void) {
+HAPPYC_SHARED_LIB_API map_iter_t map_iter_(void) {
     map_iter_t iter;
     iter.bucketidx = -1U;
     iter.node = NULL;
@@ -176,7 +176,7 @@ map_iter_t map_iter_(void) {
 }
 
 
-const char *map_next_(map_base_t *m, map_iter_t *iter) {
+HAPPYC_SHARED_LIB_API const char *map_next_(map_base_t *m, map_iter_t *iter) {
     if (iter->node) {
         iter->node = iter->node->next;
         if (iter->node == NULL) goto nextBucket;

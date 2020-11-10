@@ -7,6 +7,7 @@
 #ifndef HAPPY_C_BASE64_H
 #define HAPPY_C_BASE64_H
 
+#include "happyc/happyc.h"
 #include <stddef.h>
 
 /**

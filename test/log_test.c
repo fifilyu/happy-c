@@ -24,7 +24,7 @@
 #include <stdio.h>
 
 int main() {
-    printf("\n---------- TestCase1: 输出到 stdout ----------\n");
+    printf("\n---------- TestCase1: out to stdout ----------\n");
     G_LogConfig.level = LOG_TRACE;
     G_LogConfig.output_to = LOGOUTPUT_STDOUT;
 
@@ -34,11 +34,11 @@ int main() {
     log_warn("TestCase.%d: This is %s log message", 1, "LOG_WARN");
     log_error("TestCase.%d: This is %s log message", 1, "LOG_ERROR");
     log_fatal("TestCase.%d: This is %s log message\n", 1, "LOG_FATAL");
-    // 不会输出任何日志
+    // No logs will be printed.
     log_off("TestCase.%d: This is %s log message", 1, "LOG_OFF");
 
 
-    printf("\n---------- TestCase2: 输出到 stderr ----------\n");
+    printf("\n---------- TestCase2: out to stderr ----------\n");
     G_LogConfig.level = LOG_TRACE;
     G_LogConfig.output_to = LOGOUTPUT_STDERR;
 
@@ -48,14 +48,13 @@ int main() {
     log_warn("TestCase.%d: This is %s log message", 2, "LOG_WARN");
     log_error("TestCase.%d: This is %s log message", 2, "LOG_ERROR");
     log_fatal("TestCase.%d: This is %s log message\n", 2, "LOG_FATAL");
-    // 不会输出任何日志
+    // No logs will be printed.
     log_off("TestCase.%d: This is %s log message", 2, "LOG_OFF");
 
 
-    printf("\n---------- TestCase3: 输出到 文件 test.log 日志最大大小：10k ----------\n");
+    printf("\n---------- TestCase3: out to test.log size: 10k ----------\n");
     G_LogConfig.level = LOG_TRACE;
     G_LogConfig.output_to = LOGOUTPUT_FILE;
-    // 当日志文件大小超过限制时，日志文件内容将被覆盖写入
     G_LogConfig.max_byte = 10000;  // 10kb
     G_LogConfig.path = "test.log";
 
@@ -65,10 +64,10 @@ int main() {
     log_warn("TestCase.%d: This is %s log message", 3, "LOG_WARN");
     log_error("TestCase.%d: This is %s log message", 3, "LOG_ERROR");
     log_fatal("TestCase.%d: This is %s log message\n", 3, "LOG_FATAL");
-    // 不会输出任何日志
+    // No logs will be printed.
     log_off("TestCase.%d: This is %s log message", 2, "LOG_OFF");
 
-    printf("\n---------- TestCase4: 输出到 stdout ----------\n");
+    printf("\n---------- TestCase4: out to stdout ----------\n");
     G_LogConfig.level = LOG_TRACE;
     G_LogConfig.output_to = LOGOUTPUT_STDOUT;
 
