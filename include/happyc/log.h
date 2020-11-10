@@ -22,6 +22,10 @@
 #ifndef HAPPY_C_LOG_H
 #define HAPPY_C_LOG_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/happyc.h"
 #include <string.h>
 
@@ -88,9 +92,13 @@ HAPPYC_SHARED_LIB_API void happy_log(LogLevel_t level, const char *file, int lin
     log_trace("var->%s="value_fmt, name, value)
 
 #define log_input(value_fmt, name, value) \
-    log_trace("input->%s\x1b[0m="value_fmt, name, value)
+    log_trace("input->%s="value_fmt, name, value)
 
 #define log_output(value_fmt, name, value) \
     log_trace("output->%s="value_fmt, name, value)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //HAPPY_C_LOG_H

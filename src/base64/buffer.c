@@ -5,6 +5,10 @@
  * copyright (c) 2014 joseph werle
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include "happyc/base64.h"
 
@@ -35,3 +39,7 @@ HAPPYC_SHARED_LIB_API char *b64_buf_realloc(unsigned char *ptr, size_t size) {
 
     return (char *)ptr;
 }
+
+#ifdef __cplusplus
+}
+#endif

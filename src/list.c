@@ -22,6 +22,10 @@
 #include <stdlib.h>
 #include "happyc/list.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 HAPPYC_SHARED_LIB_API void list_init(list_t *list) {
     list->head = NULL;
 }
@@ -109,3 +113,7 @@ HAPPYC_SHARED_LIB_API list_node_t *list_last(list_t *list) {
 
     return result;
 }
+
+#ifdef __cplusplus
+}
+#endif

@@ -19,6 +19,10 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/date.h"
 
 #include <time.h>
@@ -49,3 +53,7 @@ HAPPYC_SHARED_LIB_API bool get_current_date(char *buffer, size_t len) {
 
     return true;
 }
+
+#ifdef __cplusplus
+}
+#endif

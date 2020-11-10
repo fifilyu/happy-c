@@ -5,8 +5,12 @@
  * under the terms of the MIT license. See LICENSE for details.
  */
 
-#ifndef MAP_H
-#define MAP_H
+#ifndef HAPPY_C_MAP_H
+#define HAPPY_C_MAP_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "happyc/happyc.h"
 #include <string.h>
@@ -78,4 +82,8 @@ typedef map_t(char) map_char_t;
 typedef map_t(float) map_float_t;
 typedef map_t(double) map_double_t;
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif //HAPPY_C_MAP_H

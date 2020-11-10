@@ -7,6 +7,10 @@
 #ifndef HAPPY_C_BASE64_H
 #define HAPPY_C_BASE64_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/happyc.h"
 #include <stddef.h>
 
@@ -69,5 +73,9 @@ b64_decode(const char *, size_t);
  */
 unsigned char *
 b64_decode_ex(const char *, size_t, size_t *);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // HAPPY_C_BASE64_H

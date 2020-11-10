@@ -5,6 +5,10 @@
  * under the terms of the MIT license. See LICENSE for details.
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include "happyc/map.h"
@@ -191,3 +195,7 @@ HAPPYC_SHARED_LIB_API const char *map_next_(map_base_t *m, map_iter_t *iter) {
     }
     return (char *) (iter->node + 1);
 }
+
+#ifdef __cplusplus
+}
+#endif

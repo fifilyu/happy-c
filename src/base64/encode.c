@@ -5,6 +5,10 @@
  * copyright (c) 2014 joseph werle
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/base64.h"
 
 #ifdef b64_USE_CUSTOM_MALLOC
@@ -87,3 +91,7 @@ b64_encode(const unsigned char *src, size_t len) {
 
     return enc;
 }
+
+#ifdef __cplusplus
+}
+#endif

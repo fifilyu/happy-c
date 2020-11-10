@@ -19,10 +19,13 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "happyc/date.h"
 #include "happyc/filesys.h"
 #include "happyc/log.h"
-#include <errno.h>
 #ifdef PLATFORM_LINUX
 #include <unistd.h>
 #endif
@@ -30,7 +33,6 @@
 #include <process.h>
 #endif
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
@@ -39,6 +41,7 @@ LogConfig_t G_LogConfig = {LOG_INFO, LOGOUTPUT_STDOUT, 0, NULL};
 static int pid = 0;
 
 #if defined(PLATFORM_LINUX) || defined(PLATFORM_WIN32)
+
 HAPPYC_SHARED_LIB_API void open_log_file(FILE **file) {
     if (*file == NULL) {
         *file = fopen(G_LogConfig.path, "wb");
@@ -111,3 +114,8 @@ HAPPYC_SHARED_LIB_API void happy_log(
 HAPPYC_SHARED_LIB_API void happy_log(
         LogLevel_t level, const char *file, int line, const char *fmt, ...) {}
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+

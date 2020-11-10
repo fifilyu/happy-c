@@ -5,6 +5,10 @@
  * copyright (c) 2014 joseph werle
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <ctype.h>
 #include "happyc/base64.h"
 
@@ -126,3 +130,7 @@ b64_decode_ex(const char *src, size_t len, size_t *decsize) {
 
     return dec;
 }
+
+#ifdef __cplusplus
+}
+#endif
