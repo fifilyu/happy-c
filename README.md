@@ -47,7 +47,7 @@ make install
         
 ## Windows 平台
 
-通过开始菜单或其它方式，打开Visual Studio的命令行环境，比如 `x64_x86 Cross Tools Command Prompt for VS 2019`。
+通过开始菜单或其它方式，用管理员权限打开Visual Studio的命令行环境，比如 `x64_x86 Cross Tools Command Prompt for VS 2019`。
 然后，执行以下命令：
 
 ```
