@@ -89,13 +89,13 @@ HAPPYC_SHARED_LIB_API void happy_log(LogLevel_t level, const char *file, int lin
     log_trace("Exit function: %s", func_name)
 
 #define log_var(value_fmt, name, value) \
-    log_trace("var->%s="value_fmt, name, value)
+    log_trace("var->%s=" value_fmt, name, value)
 
 #define log_input(value_fmt, name, value) \
-    log_trace("input->%s="value_fmt, name, value)
+    log_trace("input->%s=" value_fmt, name, value)
 
 #define log_output(value_fmt, name, value) \
-    log_trace("output->%s="value_fmt, name, value)
+    log_trace("output->%s=" value_fmt, name, value)
 
 #ifdef __cplusplus
 }
