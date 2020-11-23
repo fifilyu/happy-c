@@ -33,6 +33,7 @@ extern "C" {
 #include <process.h>
 #endif
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
@@ -45,17 +46,24 @@ static int pid = 0;
 HAPPYC_SHARED_LIB_API void open_log_file(FILE **file) {
     if (*file == NULL) {
         *file = fopen(G_LogConfig.path, "wb");
-        return;
+    } else {
+        const size_t old_log_size_ = get_size_in_byte(G_LogConfig.path);
+
+        if (old_log_size_ >= G_LogConfig.max_byte)
+            // 覆盖
+            *file = fopen(G_LogConfig.path, "wb");
+        else
+            // 追加
+            *file = fopen(G_LogConfig.path, "ab+");
     }
 
-    const size_t old_log_size_ = get_size_in_byte(G_LogConfig.path);
+    if (*file == NULL) {
+        G_LogConfig.level = LOG_ERROR;
+        G_LogConfig.output_to = LOGOUTPUT_STDERR;
 
-    if (old_log_size_ >= G_LogConfig.max_byte)
-        // 覆盖
-        *file = fopen(G_LogConfig.path, "wb");
-    else
-        // 追加
-        *file = fopen(G_LogConfig.path, "ab+");
+        log_error("Cannot open file '%s'", G_LogConfig.path);
+        exit(EXIT_FAILURE);
+    }
 }
 
 HAPPYC_SHARED_LIB_API void happy_log(
