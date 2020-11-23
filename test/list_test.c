@@ -38,23 +38,23 @@ START_TEST(test_list) {
     list_node_t *node;
 
     node = list_get(list_ptr, 0);
-    ck_assert(node);
+    ck_assert_ptr_nonnull(node);
     ck_assert(strcmp(node->data, "012") == 0);
 
     node = list_get(list_ptr, 1);
-    ck_assert(node);
+    ck_assert_ptr_nonnull(node);
     ck_assert(strcmp(node->data, "345") == 0);
 
     node = list_get(list_ptr, 2);
-    ck_assert(node);
+    ck_assert_ptr_nonnull(node);
     ck_assert(strcmp(node->data, "678") == 0);
 
     node = list_first(list_ptr);
-    ck_assert(node);
+    ck_assert_ptr_nonnull(node);
     ck_assert(strcmp(node->data, "012") == 0);
 
     node = list_last(list_ptr);
-    ck_assert(node);
+    ck_assert_ptr_nonnull(node);
     ck_assert(strcmp(node->data, "678") == 0);
 
     list_free(list_ptr);
