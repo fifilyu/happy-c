@@ -51,7 +51,7 @@ char *row_handler(void *data) {
     return buffer;
 }
 
-START_TEST(test_csv_parser) {
+START_TEST(test_csv) {
     const char *origin = "1,1,10,a\n2,2,10,b\n3,4,10,c\n";
     const char *expect_result[3] = {
             "[1 1 10 a]",
@@ -92,7 +92,7 @@ Suite* common_suite(void) {
     Suite *suite = suite_create("csv_test_suite");
     TCase *tcase = tcase_create("csv_test_case");
 
-    tcase_add_test(tcase, test_csv_parser);
+    tcase_add_test(tcase, test_csv);
 
     suite_add_tcase(suite, tcase);
 

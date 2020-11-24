@@ -19,21 +19,43 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-#ifndef HAPPY_C_HAPPYC_H
-#define HAPPY_C_HAPPYC_H
+#include "happyc/log.h"
+#include <stdlib.h>
+#include <happyc/hex.h>
+#include <check.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+START_TEST(test_hex) {
+    unsigned char bytes[7] = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g'
+    };
 
-#include <stdbool.h>
-#include "happyc/config_compiler.h"
-#include "happyc/config_platform.h"
-
-typedef unsigned char byte_t;
-
-#ifdef __cplusplus
+    const char *expected_result = "61626364656667";
+    const char *result = to_hex_string(bytes, 7);
+    ck_assert_str_eq(expected_result, result);
 }
-#endif
 
-#endif //HAPPY_C_HAPPYC_H
+END_TEST
+
+Suite *common_suite(void) {
+    Suite *suite = suite_create("hex_test_suite");
+    TCase *tcase = tcase_create("hex_test_case");
+
+    tcase_add_test(tcase, test_hex);
+
+    suite_add_tcase(suite, tcase);
+
+    return suite;
+}
+
+int main() {
+    int number_failed;
+
+    Suite *suite = common_suite();
+    SRunner *runner = srunner_create(suite);
+
+    srunner_run_all(runner, CK_NORMAL);
+    number_failed = srunner_ntests_failed(runner);
+    srunner_free(runner);
+
+    return number_failed;
+}

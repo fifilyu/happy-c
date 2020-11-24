@@ -19,21 +19,23 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-#ifndef HAPPY_C_HAPPYC_H
-#define HAPPY_C_HAPPYC_H
+#ifndef HAPPY_C_HEX_H
+#define HAPPY_C_HEX_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include <stdbool.h>
-#include "happyc/config_compiler.h"
-#include "happyc/config_platform.h"
+#include "happyc/happyc.h"
 
-typedef unsigned char byte_t;
+#ifdef PLATFORM_LINUX
+#include <unitypes.h>
+#endif
+
+HAPPYC_SHARED_LIB_API const char *to_hex_string(byte_t *bytes, uint32_t bytes_len);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //HAPPY_C_HAPPYC_H
+#endif //HAPPY_C_HEX_H
