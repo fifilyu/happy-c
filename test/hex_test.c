@@ -25,7 +25,7 @@
 #include <check.h>
 
 START_TEST(test_hex) {
-    unsigned char bytes[7] = {
+    byte_t bytes[7] = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g'
     };
 
