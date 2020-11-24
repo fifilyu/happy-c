@@ -33,7 +33,6 @@ START_TEST(test_hex) {
     const char *result = to_hex_string(bytes, 7);
     ck_assert_str_eq(expected_result, result);
 }
-
 END_TEST
 
 Suite *common_suite(void) {
