@@ -44,18 +44,14 @@ static int pid = 0;
 #if defined(PLATFORM_LINUX) || defined(PLATFORM_WIN32)
 
 HAPPYC_SHARED_LIB_API void open_log_file(FILE **file) {
-    if (*file == NULL) {
-        *file = fopen(G_LogConfig.path, "wb");
-    } else {
-        const size_t old_log_size_ = get_size_in_byte(G_LogConfig.path);
+    const size_t old_log_size_ = get_size_in_byte(G_LogConfig.path);
 
-        if (old_log_size_ >= G_LogConfig.max_byte)
-            // 覆盖
-            *file = fopen(G_LogConfig.path, "wb");
-        else
-            // 追加
-            *file = fopen(G_LogConfig.path, "ab+");
-    }
+    if (old_log_size_ >= G_LogConfig.max_byte)
+        // 覆盖
+        *file = fopen(G_LogConfig.path, "wb");
+    else
+        // 追加
+        *file = fopen(G_LogConfig.path, "ab+");
 
     if (*file == NULL) {
         G_LogConfig.level = LOG_ERROR;
