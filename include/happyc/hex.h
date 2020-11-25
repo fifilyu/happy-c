@@ -27,10 +27,7 @@ extern "C" {
 #endif
 
 #include "happyc/happyc.h"
-
-#ifdef PLATFORM_LINUX
-#include <unitypes.h>
-#endif
+#include <stdint.h>
 
 HAPPYC_SHARED_LIB_API const char *to_hex_string(byte_t *bytes, uint32_t bytes_len);
 
