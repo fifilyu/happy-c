@@ -29,7 +29,13 @@ extern "C" {
 
 HAPPYC_SHARED_LIB_API bool check_file_exists(const char *filename) {
     FILE *fp = fopen(filename, "r");
-    return fp != NULL;
+    const bool result = fp != NULL;
+
+    if (result) {
+        fclose(fp);
+    }
+
+    return result;
 }
 
 HAPPYC_SHARED_LIB_API size_t get_size_in_byte(const char *filename) {
