@@ -27,7 +27,14 @@ extern "C" {
 #include "happyc/log.h"
 #include <stdbool.h>
 
+#ifdef PLATFORM_LINUX
+
+#include <sys/stat.h>
+
+#endif
+
 HAPPYC_SHARED_LIB_API bool check_file_exists(const char *filename) {
+#ifdef PLATFORM_WIN32
     FILE *fp = fopen(filename, "r");
     const bool result = fp != NULL;
 
@@ -36,18 +43,22 @@ HAPPYC_SHARED_LIB_API bool check_file_exists(const char *filename) {
     }
 
     return result;
+#else
+    struct stat buffer;
+    return (stat(filename, &buffer) == 0);
+#endif
 }
 
 HAPPYC_SHARED_LIB_API size_t get_size_in_byte(const char *filename) {
     FILE *fp = fopen(filename, "r");
     size_t file_size = 0;
 
-    if(fp) {
-        fseek(fp, 0 , SEEK_END);
+    if (fp) {
+        fseek(fp, 0, SEEK_END);
 
         file_size = ftell(fp);
 
-        fseek(fp, 0 , SEEK_SET);
+        fseek(fp, 0, SEEK_SET);
 
         fclose(fp);
     } else {
