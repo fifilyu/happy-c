@@ -14,7 +14,7 @@ SET(SRC_LIST
         base64/decode.c
         base64/encode.c
         map.c
-        hex.c)
+        byte.c)
 
 IF(MSVC)
   ADD_LIBRARY(happyc STATIC ${SRC_LIST})
