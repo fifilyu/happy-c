@@ -24,41 +24,55 @@
 #include <stdlib.h>
 
 START_TEST(test_from_2_bytes) {
-    byte_t bytes1[2] = {0x00, 0x03};
+    byte_t bytes1[] = {0x00, 0x03};
 
     int error_code;
     const uint16_t result1 = from_2_bytes(bytes1, sizeof(bytes1), &error_code);
 
     ck_assert_int_eq(error_code, 0);
-    ck_assert_uint_eq(result1, 3U);
+    ck_assert_uint_eq(result1, 0x0003U);
 
-    byte_t bytes2[3] = {0x00, 0x03, 0x01};
+    byte_t bytes2[] = {0x00, 0x03, 0x01};
     error_code = 0;
 
     const uint16_t result2 = from_2_bytes(bytes2, sizeof(bytes2), &error_code);
+    ck_assert_int_eq(error_code, 0);
+    ck_assert_uint_eq(result2, 0x0003U);
+
+    byte_t bytes3[] = {0x00};
+    error_code = 0;
+    const uint16_t result3 = from_2_bytes(bytes3, sizeof(bytes3), &error_code);
 
     ck_assert_int_eq(error_code, -1);
-    ck_assert_uint_eq(result2, 0);
+    ck_assert_uint_eq(result3, 0);
 }
 
 END_TEST
 
 START_TEST(test_from_4_bytes) {
-    byte_t bytes1[4] = {0x00, 0x00, 0x00, 0x03};
+    byte_t bytes1[] = {0x00, 0x00, 0x00, 0x03};
 
     int error_code;
     const uint32_t result1 = from_4_bytes(bytes1, sizeof(bytes1), &error_code);
 
     ck_assert_int_eq(error_code, 0);
-    ck_assert_uint_eq(result1, 3U);
+    ck_assert_uint_eq(result1, 0x0003U);
 
-    byte_t bytes2[3] = {0x00, 0x03, 0x01};
+    byte_t bytes2[] = {0x00, 0x00, 0x01, 0x01, 0x00};
     error_code = 0;
 
     const uint32_t result2 = from_4_bytes(bytes2, sizeof(bytes2), &error_code);
 
+    ck_assert_int_eq(error_code, 0);
+    ck_assert_uint_eq(result2, 0x0101U);
+
+    byte_t bytes3[] = {0x00, 0x03, 0x01};
+    error_code = 0;
+
+    const uint32_t result3 = from_4_bytes(bytes3, sizeof(bytes3), &error_code);
+
     ck_assert_int_eq(error_code, -1);
-    ck_assert_uint_eq(result2, 0);
+    ck_assert_uint_eq(result3, 0);
 }
 
 END_TEST

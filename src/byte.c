@@ -12,7 +12,7 @@ extern "C" {
 #endif
 
 HAPPYC_SHARED_LIB_API uint16_t from_2_bytes(const byte_t *bytes, int len, int *error_code) {
-    if (len != 2) {
+    if (len < 2) {
         *error_code = -1;
         return 0;
     }
@@ -22,7 +22,7 @@ HAPPYC_SHARED_LIB_API uint16_t from_2_bytes(const byte_t *bytes, int len, int *e
 }
 
 HAPPYC_SHARED_LIB_API uint32_t from_4_bytes(const byte_t *bytes, int len, int *error_code) {
-    if (len != 4) {
+    if (len < 4) {
         *error_code = -1;
         return 0;
     }
