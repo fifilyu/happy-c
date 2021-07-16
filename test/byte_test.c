@@ -35,9 +35,9 @@ START_TEST(test_from_2_bytes) {
     byte_t bytes2[] = {0x00, 0x03, 0x01};
     error_code = 0;
 
-    const uint16_t result2 = from_2_bytes(bytes2, sizeof(bytes2), &error_code);
+    const uint16_t result2 = from_2_bytes(&bytes2[1], sizeof(bytes2) - 1, &error_code);
     ck_assert_int_eq(error_code, 0);
-    ck_assert_uint_eq(result2, 0x0003U);
+    ck_assert_uint_eq(result2, 0x0301U);
 
     byte_t bytes3[] = {0x00};
     error_code = 0;
@@ -56,15 +56,15 @@ START_TEST(test_from_4_bytes) {
     const uint32_t result1 = from_4_bytes(bytes1, sizeof(bytes1), &error_code);
 
     ck_assert_int_eq(error_code, 0);
-    ck_assert_uint_eq(result1, 0x0003U);
+    ck_assert_uint_eq(result1, 0x00000003U);
 
     byte_t bytes2[] = {0x00, 0x00, 0x01, 0x01, 0x00};
     error_code = 0;
 
-    const uint32_t result2 = from_4_bytes(bytes2, sizeof(bytes2), &error_code);
+    const uint32_t result2 = from_4_bytes(&bytes2[1], sizeof(bytes2) - 1, &error_code);
 
     ck_assert_int_eq(error_code, 0);
-    ck_assert_uint_eq(result2, 0x0101U);
+    ck_assert_uint_eq(result2, 0x00010100U);
 
     byte_t bytes3[] = {0x00, 0x03, 0x01};
     error_code = 0;
@@ -115,7 +115,7 @@ END_TEST
 START_TEST(test_from_hex_string) {
     byte_t *bytes1 = from_hex_string("616263", "");
 
-    ck_assert(bytes1 != NULL);
+    ck_assert_ptr_nonnull(bytes1);
     ck_assert_uint_eq(bytes1[0], 0x61);
     ck_assert_uint_eq(bytes1[1], 0x62);
     ck_assert_uint_eq(bytes1[2], 0x63);
@@ -124,7 +124,7 @@ START_TEST(test_from_hex_string) {
 
     byte_t *bytes2 = from_hex_string("61 62 63", " ");
 
-    ck_assert(bytes2 != NULL);
+    ck_assert_ptr_nonnull(bytes2);
     ck_assert_uint_eq(bytes2[0], 0x61);
     ck_assert_uint_eq(bytes2[1], 0x62);
     ck_assert_uint_eq(bytes2[2], 0x63);
@@ -133,7 +133,7 @@ START_TEST(test_from_hex_string) {
 
     byte_t *bytes3 = from_hex_string("61  62  63", "  ");
 
-    ck_assert(bytes3 != NULL);
+    ck_assert_ptr_nonnull(bytes3);
     ck_assert_uint_eq(bytes3[0], 0x61);
     ck_assert_uint_eq(bytes3[1], 0x62);
     ck_assert_uint_eq(bytes3[2], 0x63);
