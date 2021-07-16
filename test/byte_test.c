@@ -40,6 +40,7 @@ START_TEST(test_from_2_bytes) {
     ck_assert_int_eq(error_code, -1);
     ck_assert_uint_eq(result2, 0);
 }
+
 END_TEST
 
 START_TEST(test_from_4_bytes) {
@@ -59,6 +60,7 @@ START_TEST(test_from_4_bytes) {
     ck_assert_int_eq(error_code, -1);
     ck_assert_uint_eq(result2, 0);
 }
+
 END_TEST
 
 START_TEST(test_to_2_bytes) {
@@ -69,6 +71,7 @@ START_TEST(test_to_2_bytes) {
 
     free(bytes);
 }
+
 END_TEST
 
 START_TEST(test_to_4_bytes) {
@@ -81,6 +84,7 @@ START_TEST(test_to_4_bytes) {
 
     free(bytes);
 }
+
 END_TEST
 
 START_TEST(test_to_hex_string) {
@@ -91,31 +95,44 @@ START_TEST(test_to_hex_string) {
     const char *result = to_hex_string(bytes, sizeof(bytes));
     ck_assert_str_eq(result, "61626364656667");
 }
+
 END_TEST
 
 START_TEST(test_from_hex_string) {
-    const char *s1 = "61626364656667";
-    byte_t *bytes1 = from_hex_string(s1);
+    byte_t *bytes1 = from_hex_string("616263", "");
 
     ck_assert(bytes1 != NULL);
     ck_assert_uint_eq(bytes1[0], 0x61);
     ck_assert_uint_eq(bytes1[1], 0x62);
     ck_assert_uint_eq(bytes1[2], 0x63);
-    ck_assert_uint_eq(bytes1[3], 0x64);
-    ck_assert_uint_eq(bytes1[4], 0x65);
-    ck_assert_uint_eq(bytes1[5], 0x66);
-    ck_assert_uint_eq(bytes1[6], 0x67);
 
     free(bytes1);
 
-    const char *s2 = "6";
-    byte_t *bytes2 = from_hex_string(s2);
-    ck_assert_ptr_null(bytes2);
+    byte_t *bytes2 = from_hex_string("61 62 63", " ");
 
-    const char *s3 = "61626";
-    byte_t *bytes3 = from_hex_string(s3);
-    ck_assert_ptr_null(bytes3);
+    ck_assert(bytes2 != NULL);
+    ck_assert_uint_eq(bytes2[0], 0x61);
+    ck_assert_uint_eq(bytes2[1], 0x62);
+    ck_assert_uint_eq(bytes2[2], 0x63);
+
+    free(bytes2);
+
+    byte_t *bytes3 = from_hex_string("61  62  63", "  ");
+
+    ck_assert(bytes3 != NULL);
+    ck_assert_uint_eq(bytes3[0], 0x61);
+    ck_assert_uint_eq(bytes3[1], 0x62);
+    ck_assert_uint_eq(bytes3[2], 0x63);
+
+    free(bytes3);
+
+    byte_t *bytes4 = from_hex_string("6", "");
+    ck_assert_ptr_null(bytes4);
+
+    byte_t *bytes5 = from_hex_string("61626", "");
+    ck_assert_ptr_null(bytes5);
 }
+
 END_TEST
 
 Suite *common_suite(void) {

@@ -62,16 +62,36 @@ HAPPYC_SHARED_LIB_API const char *to_hex_string(byte_t *bytes, uint32_t bytes_le
     return new_buffer;
 }
 
-HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s) {
-//    const string _s = hcstring::replace(s, delimiter, "");
-    const size_t hex_str_len = strlen(s);
+HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s, const char *delimiter) {
+    int delimiter_count = 0;
+    const size_t s_len = strlen(s);
+    const size_t delimiter_len = strlen(delimiter);
 
-    if (hex_str_len < 2) {
+    // 如果字符串长度小于等于分隔符长度，返回NULL
+    if (s_len <= delimiter_len) {
         return NULL;
     }
 
-    if ((hex_str_len % 2) != 0) {
-        // 长度不是偶数
+    if (delimiter_len > 0) {
+        // 统计字符串中分隔符的数量
+        for (size_t i = 0; i < s_len; i++) {
+            const char *buf = &s[i];
+
+            // 对比字符串s的子字符串是否等于分隔符
+            if (strncmp(buf, delimiter, delimiter_len) == 0) {
+                ++delimiter_count;
+
+                // 匹配分隔符之后，s指针的位置向前移动（跳过当前分隔符）
+                i += delimiter_len - 1;
+            }
+        }
+    }
+
+    // 移除[分隔符次数*分隔符长度]后，得到不含分隔符的字符串总长度
+    const size_t hex_str_len = strlen(s) - delimiter_count * delimiter_len;
+
+    // 长度小于2或者不是偶数
+    if (hex_str_len < 2 || (hex_str_len % 2) != 0) {
         return NULL;
     }
 
@@ -79,7 +99,11 @@ HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s) {
     byte_t *bytes = malloc(sizeof(byte_t) * array_len);
 
     for (size_t i = 0; i < array_len; i++) {
-        const size_t index = i * 2;
+        size_t index = i * 2;
+
+        if (i != 0) {
+            index += i * delimiter_len;
+        }
 
         char buf[3];
         snprintf(buf, 3, "%s", &s[index]);
