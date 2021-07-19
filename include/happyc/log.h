@@ -56,31 +56,31 @@ extern LogConfig_t G_LogConfig;
 
 HAPPYC_SHARED_LIB_API void happy_log(LogLevel_t level, const char *file, int line, const char *fmt, ...);
 
-#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define FILENAME_ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define _happy_log(level, ...) \
-    happy_log(level, __FILENAME__, __LINE__, __VA_ARGS__)
+#define happy_log_(level, ...) \
+    happy_log(level, FILENAME_, __LINE__, __VA_ARGS__)
 
 #define log_trace(...) \
-    _happy_log(LOG_TRACE, __VA_ARGS__)
+    happy_log_(LOG_TRACE, __VA_ARGS__)
 
 #define log_debug(...) \
-    _happy_log(LOG_DEBUG, __VA_ARGS__)
+    happy_log_(LOG_DEBUG, __VA_ARGS__)
 
 #define log_info(...) \
-    _happy_log(LOG_INFO, __VA_ARGS__)
+    happy_log_(LOG_INFO, __VA_ARGS__)
 
 #define log_warn(...) \
-    _happy_log(LOG_WARN, __VA_ARGS__)
+    happy_log_(LOG_WARN, __VA_ARGS__)
 
 #define log_error(...) \
-    _happy_log(LOG_ERROR, __VA_ARGS__)
+    happy_log_(LOG_ERROR, __VA_ARGS__)
 
 #define log_fatal(...) \
-    _happy_log(LOG_FATAL, __VA_ARGS__)
+    happy_log_(LOG_FATAL, __VA_ARGS__)
 
 #define log_off(...) \
-    _happy_log(LOG_OFF, __VA_ARGS__)
+    happy_log_(LOG_OFF, __VA_ARGS__)
 
 #define log_enter(func_name) \
     log_trace("Enter function: %s", func_name)
