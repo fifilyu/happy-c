@@ -61,6 +61,11 @@ typedef struct {
 #define map_next(m, iter)\
   map_next_(&(m)->base, iter)
 
+#define map_exists(m, key)\
+  map_exists_(&(m)->base, key)
+
+#define map_size(m)\
+  map_size_(&(m)->base)
 
 HAPPYC_SHARED_LIB_API void map_deinit_(map_base_t *m);
 
@@ -73,6 +78,10 @@ HAPPYC_SHARED_LIB_API void map_remove_(map_base_t *m, const char *key);
 HAPPYC_SHARED_LIB_API map_iter_t map_iter_(void);
 
 HAPPYC_SHARED_LIB_API const char *map_next_(map_base_t *m, map_iter_t *iter);
+
+HAPPYC_SHARED_LIB_API bool map_exists_(map_base_t *m, const char *key);
+
+HAPPYC_SHARED_LIB_API size_t map_size_(map_base_t *m);
 
 
 typedef map_t(void*) map_void_t;

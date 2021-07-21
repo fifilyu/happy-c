@@ -30,8 +30,11 @@ START_TEST(test_map) {
     map_set(&map_str, "b_key", "b_value");
     map_set(&map_str, "c_key", "c_value");
 
+    ck_assert_uint_eq(map_size(&map_str), 3U);
+
     char **val = NULL;
 
+    ck_assert(map_exists(&map_str, "a_key"));
     val = map_get(&map_str, "a_key");
     ck_assert(val);
     ck_assert_str_eq("a_value", *val);

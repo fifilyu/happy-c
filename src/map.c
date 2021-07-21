@@ -196,6 +196,24 @@ HAPPYC_SHARED_LIB_API const char *map_next_(map_base_t *m, map_iter_t *iter) {
     return (char *) (iter->node + 1);
 }
 
+HAPPYC_SHARED_LIB_API bool map_exists_(map_base_t *m, const char *key) {
+    void **value = map_get_(m, key);
+
+    return value != NULL;
+}
+
+HAPPYC_SHARED_LIB_API size_t map_size_(map_base_t *m) {
+    const char *key;
+    map_iter_t iter = map_iter_();
+    size_t count = 0;
+
+    while ((key = map_next_(m, &iter))) {
+        count++;
+    }
+
+    return count;
+}
+
 #ifdef __cplusplus
 }
 #endif
