@@ -35,7 +35,7 @@ HAPPYC_SHARED_LIB_API uint32_t from_4_bytes(const byte_t *bytes, int len, int *e
 HAPPYC_SHARED_LIB_API byte_t *to_2_bytes(uint16_t i);
 HAPPYC_SHARED_LIB_API byte_t *to_4_bytes(uint32_t i);
 
-HAPPYC_SHARED_LIB_API const char *to_hex_string(byte_t *bytes, uint32_t bytes_len);
+HAPPYC_SHARED_LIB_API const char *to_hex_string(byte_t *bytes, uint32_t bytes_len, const char *delimiter);
 HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s, const char *delimiter);
 
 #ifdef __cplusplus

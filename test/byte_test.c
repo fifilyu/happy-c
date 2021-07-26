@@ -22,6 +22,7 @@
 #include <happyc/byte.h>
 #include <check.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 START_TEST(test_from_2_bytes) {
     byte_t bytes1[] = {0x00, 0x03};
@@ -106,8 +107,17 @@ START_TEST(test_to_hex_string) {
             'a', 'b', 'c', 'd', 'e', 'f', 'g'
     };
 
-    const char *result = to_hex_string(bytes, sizeof(bytes));
-    ck_assert_str_eq(result, "61626364656667");
+    const char *result1 = to_hex_string(bytes, sizeof(bytes), NULL);
+    ck_assert_str_eq(result1, "61626364656667");
+
+    const char *result2 = to_hex_string(bytes, sizeof(bytes), "");
+    ck_assert_str_eq(result2, "61626364656667");
+
+    const char *result3 = to_hex_string(bytes, sizeof(bytes), " ");
+    ck_assert_str_eq(result3, "61 62 63 64 65 66 67");
+
+    const char *result4 = to_hex_string(bytes, sizeof(bytes), "  ");
+    ck_assert_str_eq(result4, "61  62  63  64  65  66  67");
 }
 
 END_TEST
