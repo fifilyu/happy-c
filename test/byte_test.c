@@ -102,22 +102,38 @@ START_TEST(test_to_4_bytes) {
 
 END_TEST
 
-START_TEST(test_to_hex_string) {
+START_TEST(test_to_hex_string_with_delimiter) {
     byte_t bytes[] = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g'
     };
 
-    const char *result1 = to_hex_string(bytes, sizeof(bytes), NULL);
+    char *result1 = to_hex_string_with_delimiter(bytes, sizeof(bytes), NULL);
     ck_assert_str_eq(result1, "61626364656667");
+    free(result1);
 
-    const char *result2 = to_hex_string(bytes, sizeof(bytes), "");
+    char *result2 = to_hex_string_with_delimiter(bytes, sizeof(bytes), "");
     ck_assert_str_eq(result2, "61626364656667");
+    free(result2);
 
-    const char *result3 = to_hex_string(bytes, sizeof(bytes), " ");
+    char *result3 = to_hex_string_with_delimiter(bytes, sizeof(bytes), " ");
     ck_assert_str_eq(result3, "61 62 63 64 65 66 67");
+    free(result3);
 
-    const char *result4 = to_hex_string(bytes, sizeof(bytes), "  ");
+    char *result4 = to_hex_string_with_delimiter(bytes, sizeof(bytes), "  ");
     ck_assert_str_eq(result4, "61  62  63  64  65  66  67");
+    free(result4);
+
+    char *result5 = to_hex_string(bytes, sizeof(bytes));
+    ck_assert_str_eq(result5, "61626364656667");
+    free(result5);
+
+    char *result6 = to_hex_string_for_print(bytes, sizeof(bytes));
+    ck_assert_str_eq(result6, "[61 62 63 64 65 66 67]");
+    free(result6);
+
+    char *result7 = to_hex_string_with_space(bytes, sizeof(bytes));
+    ck_assert_str_eq(result7, "61 62 63 64 65 66 67");
+    free(result7);
 }
 
 END_TEST
@@ -167,7 +183,7 @@ Suite *common_suite(void) {
     tcase_add_test(tcase, test_from_4_bytes);
     tcase_add_test(tcase, test_to_2_bytes);
     tcase_add_test(tcase, test_to_4_bytes);
-    tcase_add_test(tcase, test_to_hex_string);
+    tcase_add_test(tcase, test_to_hex_string_with_delimiter);
     tcase_add_test(tcase, test_from_hex_string);
 
     suite_add_tcase(suite, tcase);

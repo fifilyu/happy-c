@@ -68,7 +68,7 @@ HAPPYC_SHARED_LIB_API byte_t *to_4_bytes(uint32_t i) {
     return bytes;
 }
 
-HAPPYC_SHARED_LIB_API const char *to_hex_string(byte_t *bytes, uint32_t bytes_len, const char *delimiter) {
+HAPPYC_SHARED_LIB_API char *to_hex_string_with_delimiter(byte_t *bytes, uint32_t bytes_len, const char *delimiter) {
     const char *_delimiter = delimiter ? delimiter : "";
     const size_t delimiter_len = strlen(_delimiter);
     const size_t new_delimiter_total = _delimiter ? delimiter_len * (bytes_len - 1) : 0;
@@ -86,6 +86,16 @@ HAPPYC_SHARED_LIB_API const char *to_hex_string(byte_t *bytes, uint32_t bytes_le
         }
     }
 
+    return new_buffer;
+}
+
+HAPPYC_SHARED_LIB_API char *to_hex_string_for_print(byte_t *bytes, uint32_t bytes_len) {
+    char *buf = to_hex_string_with_delimiter(bytes, bytes_len, " ");
+
+    char *new_buffer = malloc(strlen(buf) + 2 + 1);
+    sprintf(new_buffer, "[%s]", buf);
+
+    free(buf);
     return new_buffer;
 }
 
