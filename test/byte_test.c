@@ -138,41 +138,84 @@ START_TEST(test_to_hex_string_with_delimiter) {
 
 END_TEST
 
-START_TEST(test_from_hex_string) {
-    byte_t *bytes1 = from_hex_string("616263", "");
+START_TEST(test_from_hex_string_with_delimiter) {
+    {
+        size_t buf_len = 0;
+        byte_t *buf = from_hex_string_with_delimiter("616263", NULL, &buf_len);
 
-    ck_assert_ptr_nonnull(bytes1);
-    ck_assert_uint_eq(bytes1[0], 0x61);
-    ck_assert_uint_eq(bytes1[1], 0x62);
-    ck_assert_uint_eq(bytes1[2], 0x63);
+        ck_assert_ptr_nonnull(buf);
+        ck_assert_uint_eq(buf_len, 3U);
+        ck_assert_uint_eq(buf[0], 0x61);
+        ck_assert_uint_eq(buf[1], 0x62);
+        ck_assert_uint_eq(buf[2], 0x63);
 
-    free(bytes1);
+        free(buf);
+    }
 
-    byte_t *bytes2 = from_hex_string("61 62 63", " ");
+    {
+        size_t buf_len = 0;
+        byte_t *buf = from_hex_string_with_delimiter("61 62 63", " ", &buf_len);
 
-    ck_assert_ptr_nonnull(bytes2);
-    ck_assert_uint_eq(bytes2[0], 0x61);
-    ck_assert_uint_eq(bytes2[1], 0x62);
-    ck_assert_uint_eq(bytes2[2], 0x63);
+        ck_assert_ptr_nonnull(buf);
+        ck_assert_uint_eq(buf_len, 3U);
+        ck_assert_uint_eq(buf[0], 0x61);
+        ck_assert_uint_eq(buf[1], 0x62);
+        ck_assert_uint_eq(buf[2], 0x63);
 
-    free(bytes2);
+        free(buf);
+    }
 
-    byte_t *bytes3 = from_hex_string("61  62  63", "  ");
+    {
+        size_t buf_len = 0;
+        byte_t *buf = from_hex_string_with_delimiter("61  62  63", "  ", &buf_len);
 
-    ck_assert_ptr_nonnull(bytes3);
-    ck_assert_uint_eq(bytes3[0], 0x61);
-    ck_assert_uint_eq(bytes3[1], 0x62);
-    ck_assert_uint_eq(bytes3[2], 0x63);
+        ck_assert_ptr_nonnull(buf);
+        ck_assert_uint_eq(buf_len, 3U);
+        ck_assert_uint_eq(buf[0], 0x61);
+        ck_assert_uint_eq(buf[1], 0x62);
+        ck_assert_uint_eq(buf[2], 0x63);
 
-    free(bytes3);
+        free(buf);
+    }
 
-    byte_t *bytes4 = from_hex_string("6", "");
-    ck_assert_ptr_null(bytes4);
+    {
+        size_t buf_len = 0;
+        byte_t *buf = from_hex_string_with_delimiter("6", NULL, &buf_len);
+        ck_assert_ptr_null(buf);
+    }
 
-    byte_t *bytes5 = from_hex_string("61626", "");
-    ck_assert_ptr_null(bytes5);
+    {
+        size_t buf_len = 0;
+        byte_t *buf = from_hex_string_with_delimiter("61626", NULL, &buf_len);
+        ck_assert_ptr_null(buf);
+    }
+
+    {
+        size_t buf_len = 0;
+        byte_t *buf = from_hex_string("616263", &buf_len);
+
+        ck_assert_ptr_nonnull(buf);
+        ck_assert_uint_eq(buf_len, 3U);
+        ck_assert_uint_eq(buf[0], 0x61);
+        ck_assert_uint_eq(buf[1], 0x62);
+        ck_assert_uint_eq(buf[2], 0x63);
+
+        free(buf);
+    }
+
+    {
+        size_t buf_len = 0;
+        byte_t *buf = from_hex_string_with_space("61 62 63", &buf_len);
+
+        ck_assert_ptr_nonnull(buf);
+        ck_assert_uint_eq(buf_len, 3U);
+        ck_assert_uint_eq(buf[0], 0x61);
+        ck_assert_uint_eq(buf[1], 0x62);
+        ck_assert_uint_eq(buf[2], 0x63);
+
+        free(buf);
+    }
 }
-
 END_TEST
 
 Suite *common_suite(void) {
@@ -184,7 +227,7 @@ Suite *common_suite(void) {
     tcase_add_test(tcase, test_to_2_bytes);
     tcase_add_test(tcase, test_to_4_bytes);
     tcase_add_test(tcase, test_to_hex_string_with_delimiter);
-    tcase_add_test(tcase, test_from_hex_string);
+    tcase_add_test(tcase, test_from_hex_string_with_delimiter);
 
     suite_add_tcase(suite, tcase);
 

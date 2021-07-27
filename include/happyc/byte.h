@@ -28,6 +28,7 @@ extern "C" {
 
 #include "happyc.h"
 #include <stdint.h>
+#include <stddef.h>
 
 HAPPYC_SHARED_LIB_API uint16_t from_2_bytes(const byte_t *bytes, int len, int *error_code);
 HAPPYC_SHARED_LIB_API uint32_t from_4_bytes(const byte_t *bytes, int len, int *error_code);
@@ -44,7 +45,13 @@ HAPPYC_SHARED_LIB_API char *to_hex_string_for_print(byte_t *bytes, uint32_t byte
 #define to_hex_string_with_space(bytes, bytes_len) \
     to_hex_string_with_delimiter(bytes, bytes_len, " ")
 
-HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s, const char *delimiter);
+HAPPYC_SHARED_LIB_API byte_t *from_hex_string_with_delimiter(const char *s, const char *delimiter, size_t *buf_len);
+
+#define from_hex_string(s, buf_len) \
+    from_hex_string_with_delimiter(s, NULL, buf_len)
+
+#define from_hex_string_with_space(s, buf_len) \
+    from_hex_string_with_delimiter(s, " ", buf_len)
 
 #ifdef __cplusplus
 }

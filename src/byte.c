@@ -99,10 +99,11 @@ HAPPYC_SHARED_LIB_API char *to_hex_string_for_print(byte_t *bytes, uint32_t byte
     return new_buffer;
 }
 
-HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s, const char *delimiter) {
+HAPPYC_SHARED_LIB_API byte_t *from_hex_string_with_delimiter(const char *s, const char *delimiter, size_t *buf_len) {
+    const char *_delimiter = delimiter ? delimiter : "";
     int delimiter_count = 0;
     const size_t s_len = strlen(s);
-    const size_t delimiter_len = strlen(delimiter);
+    const size_t delimiter_len = strlen(_delimiter);
 
     // 如果字符串长度小于等于分隔符长度，返回NULL
     if (s_len <= delimiter_len) {
@@ -115,7 +116,7 @@ HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s, const char *delimit
             const char *buf = &s[i];
 
             // 对比字符串s的子字符串是否等于分隔符
-            if (strncmp(buf, delimiter, delimiter_len) == 0) {
+            if (strncmp(buf, _delimiter, delimiter_len) == 0) {
                 ++delimiter_count;
 
                 // 匹配分隔符之后，s指针的位置向前移动（跳过当前分隔符）
@@ -133,7 +134,8 @@ HAPPYC_SHARED_LIB_API byte_t *from_hex_string(const char *s, const char *delimit
     }
 
     const size_t array_len = hex_str_len / 2;
-    byte_t *bytes = malloc(sizeof(byte_t) * array_len);
+    *buf_len = sizeof(byte_t) * array_len;
+    byte_t *bytes = malloc(*buf_len);
 
     for (size_t i = 0; i < array_len; i++) {
         size_t index = i * 2;
