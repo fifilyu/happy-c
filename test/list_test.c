@@ -59,9 +59,10 @@ START_TEST(test_list) {
 
     list_free(list_ptr);
 }
+
 END_TEST
 
-Suite* common_suite(void) {
+Suite *common_suite(void) {
     Suite *suite = suite_create("list_test_suite");
     TCase *tcase = tcase_create("list_test_case");
 

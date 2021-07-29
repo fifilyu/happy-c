@@ -49,9 +49,10 @@ START_TEST(test_map) {
 
     map_deinit(&map_str);
 }
+
 END_TEST
 
-Suite* common_suite(void) {
+Suite *common_suite(void) {
     Suite *suite = suite_create("map_test_suite");
     TCase *tcase = tcase_create("map_test_case");
 

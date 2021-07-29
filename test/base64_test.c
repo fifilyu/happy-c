@@ -33,16 +33,18 @@ START_TEST(test_base64_encode) {
     ck_assert_str_eq(encoded_str, result);
     free(result);
 }
+
 END_TEST
 
 START_TEST(test_base64_decode) {
     unsigned char *result = b64_decode(encoded_str, strlen(encoded_str));
-    ck_assert_str_eq(str, (const char *)result);
+    ck_assert_str_eq(str, (const char *) result);
     free(result);
 }
+
 END_TEST
 
-Suite* common_suite(void) {
+Suite *common_suite(void) {
     Suite *suite = suite_create("base64_test_suite");
     TCase *tcase = tcase_create("base64_test_case");
 
@@ -54,7 +56,7 @@ Suite* common_suite(void) {
     return suite;
 }
 
-int main () {
+int main() {
     int number_failed;
 
     Suite *suite = common_suite();

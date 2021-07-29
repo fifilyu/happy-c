@@ -216,6 +216,7 @@ START_TEST(test_from_hex_string_with_delimiter) {
         free(buf);
     }
 }
+
 END_TEST
 
 Suite *common_suite(void) {

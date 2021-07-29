@@ -36,14 +36,14 @@ char *row_handler(void *data) {
 
     buffer[0] = '[';
 
-    while(node) {
+    while (node) {
         strcat(buffer, node->data);
         strcat(buffer, " ");
         node = node->next;
     }
 
     // remove the last space
-    buffer[strlen(buffer) -1] = 0;
+    buffer[strlen(buffer) - 1] = 0;
     strcat(buffer, "]");
 
     list_free(feild_list);
@@ -73,11 +73,12 @@ START_TEST(test_csv) {
     list_node_t *node = row_list->head;
     int n = 0;
 
-    while(node) {
+    while (node) {
         char *result = row_handler(node->data);
         log_info("Line: %s", result);
         ck_assert(result);
         ck_assert_str_eq(result, expect_result[n]);
+
         free(result);
 
         n++;
@@ -86,9 +87,10 @@ START_TEST(test_csv) {
 
     list_free(row_list);
 }
+
 END_TEST
 
-Suite* common_suite(void) {
+Suite *common_suite(void) {
     Suite *suite = suite_create("csv_test_suite");
     TCase *tcase = tcase_create("csv_test_case");
 
@@ -99,7 +101,7 @@ Suite* common_suite(void) {
     return suite;
 }
 
-int main () {
+int main() {
     int number_failed;
 
     Suite *suite = common_suite();

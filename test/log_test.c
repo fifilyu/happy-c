@@ -71,7 +71,7 @@ int main() {
     G_LogConfig.level = LOG_TRACE;
     G_LogConfig.output_to = LOGOUTPUT_STDOUT;
 
-    const char* func_name = "main";
+    const char *func_name = "main";
     log_enter(func_name);
 
     log_input("%d", "test", 1);
