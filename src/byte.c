@@ -45,13 +45,14 @@ HAPPYC_SHARED_LIB_API uint32_t from_4_bytes(const byte_t *bytes, int len, int *e
     }
 
     *error_code = 0;
-    return ((bytes[0] & 0xFFU) << 24U) | ((bytes[1] & 0xFFU) << 16U) | ((bytes[2] & 0xFFU) << 8U) | ((bytes[3] & 0xFFU));
+    return ((bytes[0] & 0xFFU) << 24U) | ((bytes[1] & 0xFFU) << 16U) | ((bytes[2] & 0xFFU) << 8U) |
+           ((bytes[3] & 0xFFU));
 }
 
 HAPPYC_SHARED_LIB_API byte_t *to_2_bytes(uint16_t i) {
     byte_t *bytes = malloc(sizeof(byte_t) * 2);
 
-    bytes[0] = (uint16_t)(i >> 8U) & 0xFFU;
+    bytes[0] = (uint16_t) (i >> 8U) & 0xFFU;
     bytes[1] = i & 0xFFU;
 
     return bytes;

@@ -78,7 +78,7 @@ HAPPYC_SHARED_LIB_API list_node_t *list_get(list_t *list, size_t index) {
         node = node->next;
     }
 
-    return (list_node_t *)NULL;
+    return (list_node_t *) NULL;
 }
 
 HAPPYC_SHARED_LIB_API size_t list_size(list_t *list) {

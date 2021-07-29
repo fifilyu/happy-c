@@ -32,6 +32,7 @@ extern "C" {
 #include <stdbool.h>
 
 HAPPYC_SHARED_LIB_API size_t get_size_in_byte(const char *file_name);
+
 HAPPYC_SHARED_LIB_API bool check_file_exists(const char *filename);
 
 #ifdef __cplusplus

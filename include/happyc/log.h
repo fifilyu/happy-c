@@ -49,7 +49,7 @@ typedef struct {
     LogLevel_t level;
     LogOutput_t output_to;
     size_t max_byte;
-    const char* path;
+    const char *path;
 } LogConfig_t;
 
 extern LogConfig_t G_LogConfig;

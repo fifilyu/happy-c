@@ -31,12 +31,15 @@ extern "C" {
 #include <stddef.h>
 
 HAPPYC_SHARED_LIB_API uint16_t from_2_bytes(const byte_t *bytes, int len, int *error_code);
+
 HAPPYC_SHARED_LIB_API uint32_t from_4_bytes(const byte_t *bytes, int len, int *error_code);
 
 HAPPYC_SHARED_LIB_API byte_t *to_2_bytes(uint16_t i);
+
 HAPPYC_SHARED_LIB_API byte_t *to_4_bytes(uint32_t i);
 
 HAPPYC_SHARED_LIB_API char *to_hex_string_with_delimiter(byte_t *bytes, uint32_t bytes_len, const char *delimiter);
+
 HAPPYC_SHARED_LIB_API char *to_hex_string_for_print(byte_t *bytes, uint32_t bytes_len);
 
 #define to_hex_string(bytes, bytes_len) \

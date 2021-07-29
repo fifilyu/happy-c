@@ -37,7 +37,7 @@ HAPPYC_SHARED_LIB_API char *b64_buf_realloc(unsigned char *ptr, size_t size) {
         return buf;
     }
 
-    return (char *)ptr;
+    return (char *) ptr;
 }
 
 #ifdef __cplusplus

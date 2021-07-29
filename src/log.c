@@ -26,12 +26,16 @@ extern "C" {
 #include "happyc/date.h"
 #include "happyc/filesys.h"
 #include "happyc/log.h"
+
 #ifdef PLATFORM_LINUX
+
 #include <unistd.h>
+
 #endif
 #ifdef PLATFORM_WIN32
 #include <process.h>
 #endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -117,6 +121,7 @@ HAPPYC_SHARED_LIB_API void happy_log(
     if (G_LogConfig.output_to == LOGOUTPUT_FILE)
         fclose(log_file_);
 }
+
 #else
 HAPPYC_SHARED_LIB_API void happy_log(
         LogLevel_t level, const char *file, int line, const char *fmt, ...) {}
