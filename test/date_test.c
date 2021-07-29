@@ -19,40 +19,40 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "happyc/date.h"
-
-#include <time.h>
-#include <happyc/log.h>
 #include <stdlib.h>
+#include "happyc/date.h"
+#include <check.h>
 
-// 2011-11-16 14:06:36
-HAPPYC_SHARED_LIB_API char *get_current_date() {
-    time_t t = time(NULL);
-    const size_t len = sizeof(char) * 19 + 1;
-    char *buf = malloc(len);
+START_TEST(test_date) {
+    char *buf = get_current_date();
+    ck_assert_ptr_nonnull(buf);
+    ck_assert_uint_eq(strlen(buf), 19U);
 
-#ifdef PLATFORM_WIN32
-    struct tm newtime;
-    errno_t err = localtime_s(&newtime, &t);
-
-    if (err) {
-        log_error("Invalid argument to localtime_s.");
-        return false;
-    }
-
-    strftime(buf, len, "%Y-%m-%d %H:%M:%S", &newtime);
-#else
-    struct tm *newtime = localtime(&t);
-    strftime(buf, len, "%Y-%m-%d %H:%M:%S", newtime);
-#endif
-
-    return buf;
+    free(buf);
 }
 
-#ifdef __cplusplus
+END_TEST
+
+Suite *common_suite(void) {
+    Suite *suite = suite_create("date_test_suite");
+    TCase *tcase = tcase_create("date_test_case");
+
+    tcase_add_test(tcase, test_date);
+
+    suite_add_tcase(suite, tcase);
+
+    return suite;
 }
-#endif
+
+int main() {
+    int number_failed;
+
+    Suite *suite = common_suite();
+    SRunner *runner = srunner_create(suite);
+
+    srunner_run_all(runner, CK_NORMAL);
+    number_failed = srunner_ntests_failed(runner);
+    srunner_free(runner);
+
+    return number_failed;
+}
