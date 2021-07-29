@@ -29,7 +29,7 @@ extern "C" {
 #include "happyc/happyc.h"
 #include <stdio.h>
 
-HAPPYC_SHARED_LIB_API bool get_current_date(char *buffer, size_t len);
+HAPPYC_SHARED_LIB_API char *get_current_date();
 
 #ifdef __cplusplus
 }
