@@ -68,8 +68,6 @@ HAPPYC_SHARED_LIB_API void open_log_file(FILE **file) {
 
 HAPPYC_SHARED_LIB_API void happy_log(
         LogLevel_t level, const char *file, int line, const char *fmt, ...) {
-    char current_date_buffer[20];
-
     // 关闭日志
     if (level == LOG_OFF) return;
 
@@ -101,8 +99,9 @@ HAPPYC_SHARED_LIB_API void happy_log(
 #endif
     }
 
-    get_current_date(current_date_buffer, 20);
+    char *current_date_buffer = get_current_date();
     fprintf(log_file_, "[%s] [%d] ", current_date_buffer, pid);
+    free(current_date_buffer);
 
     if (level <= LOG_DEBUG)
         fprintf(log_file_, "%s:%d ", file, line);
