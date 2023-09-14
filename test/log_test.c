@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main() {
+int main(void) {
     printf("\n---------- TestCase1: out to stdout ----------\n");
     G_LogConfig.level = LOG_TRACE;
     G_LogConfig.output_to = LOGOUTPUT_STDOUT;

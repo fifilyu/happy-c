@@ -235,7 +235,7 @@ Suite *common_suite(void) {
     return suite;
 }
 
-int main() {
+int main(void) {
     int number_failed;
 
     Suite *suite = common_suite();
